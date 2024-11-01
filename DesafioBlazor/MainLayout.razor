@@ -1,0 +1,41 @@
+﻿@using DesafioBlazor.Componente
+@inherits LayoutComponentBase
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.AddBusiness" Color="Color.Dark" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        Olá Brendel, Bem Vindo a MHTEC SISTEMAS!
+        <MudSpacer />
+        <MudSwitch @bind-Value="_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" ThumbIcon="@AlterarIcone()" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <NavMenu />
+    </MudDrawer>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = true;
+    private MudTheme _theme = new MudTheme();
+    private bool _isDarkMode;
+
+    public string AlterarIcone()
+    {
+        if (!_isDarkMode)
+            return Icons.Material.TwoTone.DarkMode;
+        else
+            return Icons.Material.TwoTone.LightMode;
+    }
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
