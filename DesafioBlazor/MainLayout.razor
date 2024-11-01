@@ -7,7 +7,8 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar>
+    <MudAppBar Dense="true">
+
         <MudIconButton Icon="@Icons.Material.Filled.AddBusiness" Color="Color.Dark" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         Olá Brendel, Bem Vindo a MHTEC SISTEMAS!
         <MudSpacer />
@@ -23,7 +24,25 @@
 
 @code {
     bool _drawerOpen = true;
-    private MudTheme _theme = new MudTheme();
+    private MudTheme _theme = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = "#343A3D",
+                Secondary = Colors.Green.Accent4,
+                AppbarBackground = "#343A3D",
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1
+            },
+
+            LayoutProperties = new LayoutProperties()
+            {
+                DrawerWidthLeft = "260px",
+                DrawerWidthRight = "300px"
+            }
+        };
     private bool _isDarkMode;
 
     public string AlterarIcone()
