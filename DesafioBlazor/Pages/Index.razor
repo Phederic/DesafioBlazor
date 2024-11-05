@@ -2,12 +2,12 @@
 
 <MudGrid>
     <MudItem xs="6" sm="4" lg="2">
-        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
-            <div class="d-flex flex-column">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" MinHeight="80px" MaxHeight="80px" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <MudStack Spacing="0">
                 <MudText Style="padding:1px 50px 4px 10px" Class="text-white">Em conversa</MudText>
                 <MudText Style="padding-left:10px">10</MudText>
-            </div>
-            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.Phone"></MudIcon>
+            </MudStack>
+                <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.Phone"></MudIcon>
         </MudPaper>
     </MudItem>
     <MudItem xs="6" sm="4" lg="2">
