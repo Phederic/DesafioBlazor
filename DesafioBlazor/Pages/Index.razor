@@ -1,28 +1,58 @@
 ﻿@page "/index"
 
 <MudGrid>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="background-color:#343A3D">
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
             <div class="d-flex flex-column">
-                <MudText Color="@Colors.lgi" Style="padding:1px 50px 4px 10px" Class="text-white">Em conversa</MudText>
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">Em conversa</MudText>
                 <MudText Style="padding-left:10px">10</MudText>
             </div>
-            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Rounded.Phone"></MudIcon>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.Phone"></MudIcon>
         </MudPaper>
     </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex align-center justify-center mud-width-full py-8"></MudPaper>
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <div class="d-flex flex-column">
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">Aguardando</MudText>
+                <MudText Style="padding-left:10px">4</MudText>
+            </div>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.HourglassEmpty"></MudIcon>
+        </MudPaper>
     </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex align-center justify-center mud-width-full py-8"></MudPaper>
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <div class="d-flex flex-column">
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">Finalizados</MudText>
+                <MudText Style="padding-left:10px">125</MudText>
+            </div>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.CheckCircle"></MudIcon>
+        </MudPaper>
     </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex align-center justify-center mud-width-full py-8"></MudPaper>
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <div class="d-flex flex-column">
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">Novos contatos</MudText>
+                <MudText Style="padding-left:10px">120</MudText>
+            </div>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.GroupAdd"></MudIcon>
+        </MudPaper>
     </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex align-center justify-center mud-width-full py-8"></MudPaper>
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <div class="d-flex flex-column">
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">T.M. de Conversa</MudText>
+                <MudText Style="padding-left:10px">02h 14m</MudText>
+            </div>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.AccessTime"></MudIcon>
+        </MudPaper>
     </MudItem>
-    <MudItem xs="12" sm="4">
-        <MudPaper Square="true" Class="d-flex align-center justify-center mud-width-full py-8"></MudPaper>
+    <MudItem xs="6" sm="4" lg="2">
+        <MudPaper Square="true" Class="d-flex" Height="80px" Width="40" Style="@($"color:{Colors.Gray.Lighten5}; background:#343A3D;")">
+            <div class="d-flex flex-column">
+                <MudText Style="padding:1px 50px 4px 10px" Class="text-white">T.M. de Espear</MudText>
+                <MudText Style="padding-left:10px">00h 11m</MudText>
+            </div>
+            <MudIcon Style="font-size: 4.5rem" Icon="@Icons.Material.Filled.Timer"></MudIcon>
+        </MudPaper>
     </MudItem>
 </MudGrid>
