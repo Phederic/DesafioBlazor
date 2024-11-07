@@ -1,7 +1,8 @@
 ﻿@using DesafioBlazor.Componente
 @inherits LayoutComponentBase
+@inject IDialogService DialogService
 
-<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" />
+<MudThemeProvider @bind-IsDarkMode="@_modoEscuro" Theme="_theme" />
 <MudPopoverProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
@@ -12,7 +13,7 @@
         <MudIconButton Icon="@Icons.Material.Filled.AddBusiness" Color="Color.Dark" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         Olá Brendel, Bem Vindo a MHTEC SISTEMAS!
         <MudSpacer />
-        <MudSwitch @bind-Value="_isDarkMode" Color="Color.Primary" Class="ma-4" T="bool" ThumbIcon="@AlterarIcone()" />
+        <MudSwitch @bind-Value="_modoEscuro" Color="Color.Primary" Class="ma-4" T="bool" ThumbIcon="@AlterarIcone()" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu />
@@ -28,8 +29,8 @@
         {
             PaletteLight = new PaletteLight()
             {
-                Primary = Colors.Green.Accent4,
-                Secondary = Colors.Green.Accent4,
+                Primary = Colors.Blue.Lighten1,
+                    Secondary = Colors.Blue.Lighten1,
                 AppbarBackground = "#343A3D",
             },
             PaletteDark = new PaletteDark()
@@ -43,11 +44,11 @@
                 DrawerWidthRight = "300px"
             }
         };
-    private bool _isDarkMode;
+    private bool _modoEscuro;
 
     public string AlterarIcone()
     {
-        if (!_isDarkMode)
+        if (!_modoEscuro)
             return Icons.Material.TwoTone.DarkMode;
         else
             return Icons.Material.TwoTone.LightMode;

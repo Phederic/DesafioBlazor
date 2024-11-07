@@ -1,5 +1,7 @@
 ﻿@page "/contatos"
 @using DesafioBlazor.Model
+@inject IDialogService DialogService
+
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
 
@@ -11,8 +13,8 @@
         <TemplateColumn Title="Ações">
             <CellTemplate>
                 <MudIconButton Icon="fab fa-whatsapp" Size="@Size.Small" />
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="@Size.Small" />
-                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="@Size.Small" />
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="@Size.Small" @onclick="() => Editar(context.Item)" />
+                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="@Size.Small" @onclick="() => Excluir(context.Item)" />
             </CellTemplate>
         </TemplateColumn>
     </Columns>
@@ -29,6 +31,17 @@
 
     void Editar(Contato contato)
     {
+        var parameters = new DialogParameters { ["Contato"] = contato };
+        var frm = _dialogService.Show<ContatosEdit>("Editar Contato", parameters);
+    }
+    async void Excluir(Contato contato)
+    {
+        bool? result = await _dialogService.ShowMessageBox("Confirmar exclusão", "Você deseja excluir?", yesText: "Sim", cancelText: "Cancelar");
+        if (result.Value)
+        {
+            Entidade.Remove(contato);
+            StateHasChanged();
+        }
     }
 
 }
