@@ -10,10 +10,15 @@
 <MudLayout>
     <MudAppBar Dense="true">
 
-        <MudIconButton Icon="@Icons.Material.Filled.AddBusiness" Color="Color.Dark" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudIconButton Icon="@Icons.Material.Filled.FlutterDash" Color="Color.Secondary" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
         Olá Brendel, Bem Vindo a MHTEC SISTEMAS!
         <MudSpacer />
         <MudSwitch @bind-Value="_modoEscuro" Color="Color.Primary" Class="ma-4" T="bool" ThumbIcon="@AlterarIcone()" />
+        <MudIconButton Icon="@Icons.Material.Filled.VolumeUp" Color="Color.Secondary" />
+        <MudIconButton Icon="@Icons.Material.Filled.Autorenew" Color="Color.Secondary" />
+        <MudIconButton Icon="@Icons.Material.Filled.Message" Color="Color.Secondary" />
+        <MudIconButton Icon="@Icons.Material.Filled.Notifications" Color="Color.Secondary" />
+        <MudIconButton Icon="@Icons.Material.Filled.AccountCircle" Color="Color.Secondary" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
         <NavMenu />
@@ -30,12 +35,14 @@
             PaletteLight = new PaletteLight()
             {
                 Primary = "#343A3D",
-                Secondary = Colors.Indigo.Accent1,
+                Secondary = Colors.Gray.Lighten5,
                 AppbarBackground = "#343A3D",
             },
             PaletteDark = new PaletteDark()
             {
-                Primary = Colors.Blue.Lighten1
+                Primary = Colors.Blue.Lighten1,
+                Secondary = Colors.Gray.Lighten5,
+
             },
 
             LayoutProperties = new LayoutProperties()

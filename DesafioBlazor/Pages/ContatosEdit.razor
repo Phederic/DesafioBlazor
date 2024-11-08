@@ -2,9 +2,9 @@
 
 <MudDialog>
     <DialogContent>
-        <MudTextField @bind-Value="Contato.Nome" Label="Nome" Variant="Variant.Filled" />
-        <MudTextField @bind-Value="Contato.Whatsapp" Label="Whatsapp" Variant="Variant.Filled" />
-        <MudTextField @bind-Value="Contato.Email" Label="Email" Variant="Variant.Filled" />
+        <MudTextField @bind-Value="Contato.Nome" Label="Nome" Variant="Variant.Outlined" Required="true " />
+        <MudTextField @bind-Value="Contato.Whatsapp" Label="Whatsapp" Variant="Variant.Outlined" />
+        <MudTextField @bind-Value="Contato.Email" Label="Email" Variant="Variant.Outlined" />
     </DialogContent>
     <DialogActions>
         <MudButton OnClick="Editar" Color="Color.Primary">Salvar</MudButton>

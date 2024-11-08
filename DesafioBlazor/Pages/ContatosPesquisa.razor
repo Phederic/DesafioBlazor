@@ -4,34 +4,35 @@
 
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
-
-<MudDataGrid Items="@Entidade" Filterable="true" QuickFilter="@Filtrar">
-    <ToolBarContent>
-        <MudText Class="pr-10" Typo="Typo.h6">Contatos</MudText>
-        <MudTextField @bind-Value="_campoProcurado" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
-                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 pr-5"></MudTextField>
-        <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">IMPORTAR CONTATOS</MudButton>
-        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Style="margin-right: 10px" Size="@Size.Large" OnClick="Novo" >ADICIONAR CONTATO</MudButton>
-        <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">EXPORTAR CONTATOS</MudButton>
-    </ToolBarContent>   
-    <Columns>
-        <PropertyColumn Property="x => x.Nome" Title="Nome" />
-        <PropertyColumn Property="x => x.Whatsapp" Title="Whatsapp" />
-        <PropertyColumn Property="x => x.Email" Title="Email" />
-        <TemplateColumn Title="Ações">
-            <CellTemplate>
-                <MudIconButton Icon="fab fa-whatsapp" Size="@Size.Small" />
-                <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="@Size.Small" @onclick="() => Editar(context.Item)" />
-                <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="@Size.Small" @onclick="() => Excluir(context.Item)" />
-            </CellTemplate>
-        </TemplateColumn>
-    </Columns>
-</MudDataGrid>
+<MudContainer MaxWidth="MaxWidth.Large" Style="margin:0; padding-top:15px">
+    <MudDataGrid Items="@Entidade" Filterable="true" QuickFilter="@Filtrar">
+        <ToolBarContent>
+            <MudText Class="pr-10" Typo="Typo.h6">Contatos</MudText>
+            <MudTextField @bind-Value="_campoProcurado" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                          AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 pr-5"></MudTextField>
+            <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">IMPORTAR CONTATOS</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Style="margin-right: 10px" Size="@Size.Large" OnClick="Novo">ADICIONAR CONTATO</MudButton>
+            <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">EXPORTAR CONTATOS</MudButton>
+        </ToolBarContent>
+        <Columns>
+            <PropertyColumn Property="x => x.Nome" Title="Nome" />
+            <PropertyColumn Property="x => x.Whatsapp" Title="Whatsapp" />
+            <PropertyColumn Property="x => x.Email" Title="Email" />
+            <TemplateColumn Title="Ações">
+                <CellTemplate>
+                    <MudIconButton Icon="fab fa-whatsapp" Size="@Size.Small" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Edit" Size="@Size.Small" @onclick="() => Editar(context.Item)" />
+                    <MudIconButton Icon="@Icons.Material.Filled.Delete" Size="@Size.Small" @onclick="() => Excluir(context.Item)" />
+                </CellTemplate>
+            </TemplateColumn>
+        </Columns>
+    </MudDataGrid>
+</MudContainer>
 @code {
 
     public List<Contato> Entidade { get; set; }
     private readonly DialogOptions _topCenter = new() { Position = DialogPosition.TopCenter };
-    private readonly DialogOptions _maxWidth = new() { MaxWidth = MaxWidth.Large, FullWidth = true };
+    private readonly DialogOptions _maxWidth = new() { MaxWidth = MaxWidth.Small, FullWidth = true };
     private string _campoProcurado;
 
     private Func<Contato, bool> Filtrar => x =>
@@ -59,7 +60,7 @@
 
     async void Editar(Contato contato)
     {
-        var parameters = new DialogParameters<ContatosEdit> 
+        var parameters = new DialogParameters<ContatosEdit>
         {
             {x => x.Contato, contato},
             {x => x.MensagemSnackBar, "Contato alterado com sucesso"}
@@ -78,8 +79,8 @@
 
     async void Novo()
     {
-        var contato = new Contato();    
-        var parameters = new DialogParameters<ContatosEdit> 
+        var contato = new Contato();
+        var parameters = new DialogParameters<ContatosEdit>
         {
             {x => x.Contato, contato},
             {x => x.MensagemSnackBar, "Contato adicionado com sucesso"}
