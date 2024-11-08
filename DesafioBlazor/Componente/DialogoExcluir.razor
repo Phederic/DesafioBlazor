@@ -1,0 +1,36 @@
+﻿@using DesafioBlazor.Model
+
+<MudDialog>
+    <DialogContent>
+        <MudText>@Mensagem</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="@Cor" Variant="Variant.Filled" OnClick="Excluir">@Botao</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string Mensagem { get; set; }
+    
+    [Parameter]
+    public Contato Contato { get; set; } = new Contato();
+
+    [Parameter] 
+    public string Botao { get; set; }
+
+    [Parameter]
+    public Color Cor { get; set; }
+
+    private void Excluir()
+    {
+        _snackbar.Add("Contato excluído com sucesso", Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Contato));
+    }
+
+
+    private void Cancel() => MudDialog.Cancel();
+}

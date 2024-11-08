@@ -1,11 +1,19 @@
 ﻿@page "/contatos"
+@using DesafioBlazor.Componente
 @using DesafioBlazor.Model
-@inject IDialogService DialogService
 
 <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
 
-<MudDataGrid Items="@Entidade">
+<MudDataGrid Items="@Entidade" Filterable="true" QuickFilter="@Filtrar">
+    <ToolBarContent>
+        <MudText Class="pr-10" Typo="Typo.h6">Contatos</MudText>
+        <MudTextField @bind-Value="_campoProcurado" Placeholder="Search" Adornment="Adornment.Start" Immediate="true"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0 pr-5"></MudTextField>
+        <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">IMPORTAR CONTATOS</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.Add" Variant="Variant.Filled" Color="Color.Primary" Style="margin-right: 10px" Size="@Size.Large" OnClick="Novo" >ADICIONAR CONTATO</MudButton>
+        <MudButton StartIcon="@Icons.Material.Filled.ImportExport" Variant="Variant.Filled" Style="margin-right: 10px" Color="Color.Primary" Size="@Size.Large">EXPORTAR CONTATOS</MudButton>
+    </ToolBarContent>   
     <Columns>
         <PropertyColumn Property="x => x.Nome" Title="Nome" />
         <PropertyColumn Property="x => x.Whatsapp" Title="Whatsapp" />
@@ -22,6 +30,26 @@
 @code {
 
     public List<Contato> Entidade { get; set; }
+    private readonly DialogOptions _topCenter = new() { Position = DialogPosition.TopCenter };
+    private readonly DialogOptions _maxWidth = new() { MaxWidth = MaxWidth.Large, FullWidth = true };
+    private string _campoProcurado;
+
+    private Func<Contato, bool> Filtrar => x =>
+      {
+          if (string.IsNullOrWhiteSpace(_campoProcurado))
+              return true;
+
+          if (x.Nome.Contains(_campoProcurado, StringComparison.OrdinalIgnoreCase))
+              return true;
+
+          if (x.Email.Contains(_campoProcurado, StringComparison.OrdinalIgnoreCase))
+              return true;
+
+          if (x.Whatsapp.Contains(_campoProcurado))
+              return true;
+
+          return false;
+      };
 
     protected override void OnInitialized()
     {
@@ -29,17 +57,62 @@
         Entidade = new ContatoData().Contatos;
     }
 
-    void Editar(Contato contato)
+    async void Editar(Contato contato)
     {
-        var parameters = new DialogParameters { ["Contato"] = contato };
-        var frm = _dialogService.Show<ContatosEdit>("Editar Contato", parameters);
+        var parameters = new DialogParameters<ContatosEdit> 
+        {
+            {x => x.Contato, contato},
+            {x => x.MensagemSnackBar, "Contato alterado com sucesso"}
+        };
+
+        var frm = await _dialogService.ShowAsync<ContatosEdit>("Editar Contato", parameters, options: _maxWidth);
+        var result = await frm.Result;
+
+        if (!result.Canceled)
+        {
+            var contatoEditado = (Contato)result.Data;
+            contato = contatoEditado;
+            StateHasChanged();
+        }
     }
+
+    async void Novo()
+    {
+        var contato = new Contato();    
+        var parameters = new DialogParameters<ContatosEdit> 
+        {
+            {x => x.Contato, contato},
+            {x => x.MensagemSnackBar, "Contato adicionado com sucesso"}
+        };
+        var frm = await _dialogService.ShowAsync<ContatosEdit>("Novo Contato", parameters, options: _maxWidth);
+        var result = await frm.Result;
+
+        if (!result.Canceled)
+        {
+            var novoContato = (Contato)result.Data;
+            Entidade.Add(novoContato);
+            StateHasChanged();
+        }
+    }
+
+
     async void Excluir(Contato contato)
     {
-        bool? result = await _dialogService.ShowMessageBox("Confirmar exclusão", "Você deseja excluir?", yesText: "Sim", cancelText: "Cancelar");
-        if (result.Value)
+        var parameters = new DialogParameters<DialogoExcluir>
         {
-            Entidade.Remove(contato);
+            { x => x.Mensagem, "Você realmente deseja excluir esses registros? Este processo não pode ser desfeito." },
+            { x => x.Botao, "Excluir" },
+            { x => x.Cor, Color.Error },
+            { x => x.Contato, contato }
+        };
+
+        var dialog = await _dialogService.ShowAsync<DialogoExcluir>("Excluir", parameters, options: _topCenter);
+        var result = await dialog.Result;
+
+        if (!result.Canceled)
+        {
+            var contatoDeletado = (Contato)result.Data;
+            Entidade.Remove(contatoDeletado);
             StateHasChanged();
         }
     }

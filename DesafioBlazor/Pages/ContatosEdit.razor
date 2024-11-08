@@ -1,20 +1,30 @@
 ﻿@using DesafioBlazor.Model
-@inject MudDialogInstance DialogInstance
-
 
 <MudDialog>
     <DialogContent>
-        <MudText Typo="Typo.h6">Editar Contato</MudText>
         <MudTextField @bind-Value="Contato.Nome" Label="Nome" Variant="Variant.Filled" />
         <MudTextField @bind-Value="Contato.Whatsapp" Label="Whatsapp" Variant="Variant.Filled" />
         <MudTextField @bind-Value="Contato.Email" Label="Email" Variant="Variant.Filled" />
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="() => DialogInstance.Close(DialogResult.Ok(Contato))" Color="Color.Primary">Salvar</MudButton>
-        <MudButton OnClick="DialogInstance.Cancel" Color="Color.Secondary">Cancelar</MudButton>
+        <MudButton OnClick="Editar" Color="Color.Primary">Salvar</MudButton>
+        <MudButton OnClick="MudDialog.Cancel" Color="Color.Error">Cancelar</MudButton>
     </DialogActions>
 </MudDialog>
 
 @code {
+
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string MensagemSnackBar { get; set; }
+
     [Parameter] public Contato Contato { get; set; }
+
+    private void Editar()
+    {
+        _snackbar.Add(MensagemSnackBar, Severity.Success);
+        MudDialog.Close(DialogResult.Ok(Contato));
+    }
 }
