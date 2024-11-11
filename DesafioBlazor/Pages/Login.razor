@@ -1,0 +1,78 @@
+﻿@page "/login"
+@inherits LayoutComponentBase
+<MudThemeProvider @bind-IsDarkMode="@_modoEscuro" Theme="_theme" />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #2D2F33;">
+    <MudPaper Elevation="0" Style="background-color: transparent;">
+        <MudContainer MaxWidth="MaxWidth.Medium">
+            <MudCard Class="pa-16 ma-2" Style="min-width: 300px; max-width: 400px; border-radius: 8px;">
+                <MudCardContent>
+                    <MudImage Src="images/logo.164e5925.png" Height="60" Width="230" />
+                    <MudTextField T="string" Label="Email" InputType="InputType.Email" @bind-Value="@Email" Required="true" Immediate="true" />
+                    <MudTextField T="string" Label="Senha" InputType="InputType.Password" @bind-Value="@Senha" Required="true" Immediate="true" />
+                    <MudButton Variant="Variant.Filled" Color="Color.Primary" Class="mt-4" FullWidth="true" OnClick="@Logar">Entrar</MudButton>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudText Typo="Typo.caption" Align="Align.Center" Class="mt-2">
+                        Registre-se, agora mesmo!
+                    </MudText>
+                </MudCardActions>
+            </MudCard>
+        </MudContainer>
+    </MudPaper>
+</div>
+
+
+@code {
+    [Inject] NavigationManager Navigation { get; set; }
+
+
+    private string Email { get; set; } = string.Empty;
+    private string Senha { get; set; } = string.Empty;
+
+    private bool _modoEscuro;
+
+    private MudTheme _theme = new MudTheme()
+        {
+            PaletteLight = new PaletteLight()
+            {
+                Primary = "#343A3D",
+                Secondary = Colors.Gray.Lighten5,
+                AppbarBackground = "#343A3D",
+            },
+            PaletteDark = new PaletteDark()
+            {
+                Primary = Colors.Blue.Lighten1,
+                Secondary = Colors.Gray.Lighten5,
+
+            },
+
+            LayoutProperties = new LayoutProperties()
+            {
+                DrawerWidthLeft = "260px",
+                DrawerWidthRight = "300px"
+            }
+        };
+    private void Logar()
+    {
+        if (Email.ToUpper() != "BRENDEL")
+        {
+            _snackbar.Add("Senha ou Email incorreto", Severity.Error);
+            return;
+        }
+        if (Senha != "123")
+        {
+            _snackbar.Add("Senha ou Email incorreto", Severity.Error);
+            return;
+        }
+
+        bool loginSuccessful = true;
+        if (loginSuccessful)
+        {
+            Navigation.NavigateTo("/dashboard", forceLoad: true);
+        }
+    }
+}

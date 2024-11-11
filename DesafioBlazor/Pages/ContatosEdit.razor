@@ -24,6 +24,18 @@
 
     private void Editar()
     {
+        if (string.IsNullOrEmpty(Contato.Email) || string.IsNullOrEmpty(Contato.Whatsapp))
+        {
+            _snackbar.Add("É preciso ter pelo menos um email ou whatsapp cadastrado", Severity.Error);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Contato.Nome))
+        {
+            _snackbar.Add("<b>Nome</b> é obrigatório", Severity.Error);
+            return;
+        }
+
         _snackbar.Add(MensagemSnackBar, Severity.Success);
         MudDialog.Close(DialogResult.Ok(Contato));
     }
